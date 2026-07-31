@@ -1,5 +1,6 @@
 import { Component, ReactNode } from 'react';
 import { AppLayout } from './components/Layout';
+import { DemoBanner } from './components/common/DemoBanner';
 import { useTheme } from './hooks/useTheme';
 
 class ErrorBoundary extends Component<
@@ -43,6 +44,7 @@ function App() {
   useTheme();
   return (
     <ErrorBoundary>
+      <DemoBanner />
       <AppLayout />
     </ErrorBoundary>
   );

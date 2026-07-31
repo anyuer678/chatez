@@ -13,6 +13,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "build:web": "vite build",
+    "build:demo": "vite build --mode demo",
     "build:win": "tauri build",
     "build:android": "cap sync && cd android && gradlew assembleDebug",
     "build:all": "npm run build:web && npm run build:win && npm run build:android",

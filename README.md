@@ -1,5 +1,8 @@
 # Chatez
 
+[![GitHub Pages](https://img.shields.io/badge/%F0%9F%8C%90-%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88-2ea44f)](https://anyuer678.github.io/chatez/)
+> ⚠️ **在线预览为演示模式**：仅展示界面设计（主题切换、Prompt 市场、Skill 列表均可浏览）。出于安全考虑，**演示版禁用了 API Key 配置与 AI 对话**——密钥绝不会进入静态页面。请下载安装包体验完整功能。
+
 **可配置 Prompt + Skill 的 AI 工作台** — v1.14.1
 
 支持 Web、Windows、Android 三端运行。提供多 Prompt 角色切换、Skill 技能系统、流式输出、会话持久化等功能。

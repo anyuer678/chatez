@@ -3,6 +3,7 @@ import { useChatStore } from '../../stores/chatStore';
 import { usePromptStore } from '../../stores/promptStore';
 import { useSkillStore } from '../../stores/skillStore';
 import { useConfigStore, TONE_PRESETS } from '../../stores/configStore';
+import { IS_DEMO_MODE } from '../../config/demo';
 import { MessageList } from './MessageList';
 import { InputBox } from './InputBox';
 import { apiClient, ChatMessage } from '../../utils/api-client';
@@ -59,6 +60,11 @@ export function ChatWindow({ onOpenSidebar, showMobileMenuButton = false }: Chat
 
   const handleSend = useCallback(
     async (content: string) => {
+      // 演示模式：禁止发起 AI 对话
+      if (IS_DEMO_MODE) {
+        alert('🔒 演示模式：AI 对话已禁用。请前往 GitHub Releases 下载安装包体验完整功能。');
+        return;
+      }
       let sessionId = activeSessionId;
       if (!sessionId) {
         sessionId = createSession();

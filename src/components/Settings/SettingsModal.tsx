@@ -5,6 +5,7 @@ import { SkillManager } from '../Skill';
 import { GenerationPanel } from './GenerationPanel';
 import { SkillPresetsPanel } from './SkillPresetsPanel';
 import { IMAGES } from '../../config/images';
+import { IS_DEMO_MODE, DEMO_NOTICE } from '../../config/demo';
 import { X, RotateCcw, Download, Upload, Eye, EyeOff, Sparkles } from 'lucide-react';
 
 interface SettingsModalProps {
@@ -133,6 +134,14 @@ export function SettingsModal({ isOpen, onClose, initialTab = 'api' }: SettingsM
           {/* API 配置 */}
           {activeTab === 'api' && (
             <div className="space-y-4">
+              {IS_DEMO_MODE && (
+                <div
+                  className="px-3 py-2.5 rounded-paper text-xs border-2 border-dashed"
+                  style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+                >
+                  🔒 {DEMO_NOTICE}
+                </div>
+              )}
               <div>
                 <label
                   className="block text-xs mb-1.5 font-handwriting-en text-base"
@@ -143,6 +152,7 @@ export function SettingsModal({ isOpen, onClose, initialTab = 'api' }: SettingsM
                 <select
                   value={config.api.provider}
                   onChange={(e) => config.updateApiConfig({ provider: e.target.value as 'openai' | 'custom' })}
+                  disabled={IS_DEMO_MODE}
                   className="w-full px-3 py-2.5 rounded-paper text-sm focus:outline-none border-2 border-dashed focus:border-solid"
                   style={{
                     backgroundColor: 'var(--bg-input)',
@@ -167,7 +177,8 @@ export function SettingsModal({ isOpen, onClose, initialTab = 'api' }: SettingsM
                     type={showApiKey ? 'text' : 'password'}
                     value={config.api.apiKey}
                     onChange={(e) => config.updateApiConfig({ apiKey: e.target.value })}
-                    placeholder="sk-..."
+                    placeholder={IS_DEMO_MODE ? '演示模式不可用' : 'sk-...'}
+                    disabled={IS_DEMO_MODE}
                     className="w-full px-3 py-2.5 pr-10 rounded-paper text-sm focus:outline-none border-2 border-dashed focus:border-solid font-mono"
                     style={{
                       backgroundColor: 'var(--bg-input)',
@@ -196,7 +207,7 @@ export function SettingsModal({ isOpen, onClose, initialTab = 'api' }: SettingsM
                   type="text"
                   value={config.api.baseUrl}
                   onChange={(e) => config.updateApiConfig({ baseUrl: e.target.value })}
-                  placeholder="https://api.openai.com/v1"
+                  disabled={IS_DEMO_MODE}
                   className="w-full px-3 py-2.5 rounded-paper text-sm focus:outline-none border-2 border-dashed focus:border-solid font-mono"
                   style={{
                     backgroundColor: 'var(--bg-input)',
@@ -217,7 +228,7 @@ export function SettingsModal({ isOpen, onClose, initialTab = 'api' }: SettingsM
                   type="text"
                   value={config.api.model}
                   onChange={(e) => config.updateApiConfig({ model: e.target.value })}
-                  placeholder="例如 gpt-4o-mini / claude-3-5-sonnet / deepseek-chat / qwen-turbo"
+                  disabled={IS_DEMO_MODE}
                   className="w-full px-3 py-2.5 rounded-paper text-sm focus:outline-none border-2 border-dashed focus:border-solid font-mono"
                   style={{
                     backgroundColor: 'var(--bg-input)',
