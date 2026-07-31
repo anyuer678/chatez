@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+.dist/
+build/
+out/
+*.apk
+*.msi
+*.exe
+
+# Tauri
+src-tauri/target/
+
+# Android
+android/app/build/
+android/.gradle/
+android/capacitor.settings.gradle
+
+# iOS
+ios/App/App/build/
+ios/App/Pods/
+
+# IDE
+.vscode/
+.idea/
+.trae/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+
+# Backup (本地保留，不上传)
+backups/
+
+# 未使用的素材与构建产物（本地保留，不上传）
+未使用图片/
+构建产物/
+
+# Misc
+*.tsbuildinfo

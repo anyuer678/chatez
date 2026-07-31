@@ -1,0 +1,26 @@
+[package]
+name = "chatez"
+version = "1.14.1"
+description = "ChatEZ - 在书房里，与 AI 对话"
+authors = ["ChatEZ"]
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "chatez_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

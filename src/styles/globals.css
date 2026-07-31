@@ -1,0 +1,546 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   ChatEZ · 书房手记 设计系统
+   配色：羊皮纸 + 墨水 + 皮革
+   字体：Noto Serif SC + Caveat + Ma Shan Zheng + Patrick Hand
+   ============================================================ */
+
+:root {
+  /* 主背景（羊皮纸米色） */
+  --bg-main: #f4ecd8;
+  --bg-sidebar: #ede2c5;
+  --bg-card: #faf3e0;
+  --bg-input: #f4ecd8;
+  --bg-hover: #e8dbb8;
+  --bg-active: #ddc997;
+
+  /* 文字（墨水深棕） */
+  --text-primary: #3a2e1f;
+  --text-secondary: #5c4a32;
+  --text-muted: #8a7558;
+  --text-placeholder: #b09870;
+
+  /* 边框（暖棕） */
+  --border-light: #d9c69a;
+  --border-medium: #b89c6a;
+
+  /* 强调（皮革棕 / 信纸黄） */
+  --accent: #8b6f47;
+  --accent-hover: #6d5535;
+  --accent-light: rgba(139, 111, 71, 0.12);
+  --accent-soft: #c8956c;
+
+  /* 装饰色（信纸黄 / 墨色） */
+  --paper-yellow: #f7e9b0;
+  --tape: #e8c87a;
+  --ink: #2c2418;
+
+  /* 阴影（多层纸张感） */
+  --shadow-sm: 0 1px 2px rgba(58, 46, 31, 0.08), 0 1px 1px rgba(58, 46, 31, 0.04);
+  --shadow-md: 0 2px 4px rgba(58, 46, 31, 0.1), 0 4px 12px rgba(58, 46, 31, 0.06);
+  --shadow-lg: 0 4px 8px rgba(58, 46, 31, 0.12), 0 12px 24px rgba(58, 46, 31, 0.1);
+
+  /* 字体（全部使用系统字体栈，避免 Google Fonts 外链阻塞渲染） */
+  --font-serif: 'Source Han Serif SC', 'Songti SC', 'SimSun', 'STSong', Georgia, serif;
+  --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-handwriting-en: 'Comic Sans MS', 'Marker Felt', 'Caveat', cursive;
+  --font-handwriting-cn: 'KaiTi', 'STKaiti', 'Kaiti SC', 'Hannotate SC', 'STXingkai', cursive;
+  --font-handwriting-code: 'Menlo', 'Consolas', monospace;
+  --font-mono: 'Consolas', 'Monaco', monospace;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* ============================================================
+     过渡令牌（设计系统统一动画时长与缓动函数）
+     ============================================================ */
+  --dur-fast: 120ms;     /* 极快：颜色 / 透明度 hover */
+  --dur-base: 200ms;     /* 标准：边框 / 阴影 / 按钮反馈 */
+  --dur-slow: 320ms;     /* 慢：布局变化 / 抽屉 / 面板 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);     /* 弹性减速，UI 首选 */
+  --ease-ink: cubic-bezier(0.4, 0, 0.2, 1);      /* 墨水扩散感 */
+  --ease-paper: cubic-bezier(0.34, 1.2, 0.64, 1); /* 纸张弹性 */
+
+  /* 焦点环（无障碍） */
+  --focus-ring: 0 0 0 3px var(--accent-light), 0 0 0 4px var(--accent);
+}
+
+.dark {
+  --bg-main: #1c140a;
+  --bg-sidebar: #150f07;
+  --bg-card: #241a0e;
+  --bg-input: #1c140a;
+  --bg-hover: #2d2010;
+  --bg-active: #3a2a14;
+
+  --text-primary: #f0d9a8;
+  --text-secondary: #c4a878;
+  --text-muted: #8a7558;
+  --text-placeholder: #6b5638;
+
+  --border-light: #3a2a14;
+  --border-medium: #4d3820;
+
+  --accent: #c8956c;
+  --accent-hover: #d4a578;
+  --accent-light: rgba(200, 149, 108, 0.18);
+  --accent-soft: #d4a578;
+
+  --paper-yellow: #3a2e1a;
+  --tape: #5a4220;
+  --ink: #f0d9a8;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.5), 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 移动端：WebView 延伸到 status bar 之下时，html 背景与状态栏同色 #faf3e0，避免白条/色差 */
+  background-color: #faf3e0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background-color: #faf3e0; /* 统一用 #faf3e0，与 Android 状态栏 0xFFFAF3E0 完全一致 */
+  line-height: 1.6;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh; /* 移动端动态视口高度，避免地址栏隐藏后留白 */
+  /* 显式声明 webkit 填充行为 */
+  background-attachment: fixed;
+}
+
+/* 羊皮纸纹理叠加层（浅色） */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/textures/paper-light.svg');
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark body::before {
+  background-image: url('/textures/paper-dark.svg');
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* 选中样式 */
+::selection {
+  background-color: var(--accent-light);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   工具类
+   ============================================================ */
+
+/* 手写体字体 */
+.font-handwriting-en {
+  font-family: var(--font-handwriting-en);
+}
+
+.font-handwriting-cn {
+  font-family: var(--font-handwriting-cn);
+}
+
+.font-handwriting-code {
+  font-family: var(--font-handwriting-code);
+}
+
+/* 双线纸张边框（外深内浅） */
+.border-paper {
+  border: 1px solid var(--border-medium);
+  box-shadow: inset 0 0 0 1px var(--border-light), inset 0 0 0 2px var(--bg-card);
+}
+
+.border-paper-double {
+  border: 3px double var(--border-medium);
+}
+
+/* 纸张阴影（柔和 + 硬边） */
+.shadow-paper {
+  box-shadow:
+    0 1px 1px rgba(58, 46, 31, 0.04),
+    0 2px 4px rgba(58, 46, 31, 0.08),
+    0 8px 16px rgba(58, 46, 31, 0.06);
+}
+
+.shadow-paper-md {
+  box-shadow:
+    0 1px 2px rgba(58, 46, 31, 0.06),
+    0 4px 8px rgba(58, 46, 31, 0.1),
+    0 12px 24px rgba(58, 46, 31, 0.08);
+}
+
+.shadow-paper-lg {
+  box-shadow:
+    0 2px 4px rgba(58, 46, 31, 0.08),
+    0 8px 16px rgba(58, 46, 31, 0.12),
+    0 24px 48px rgba(58, 46, 31, 0.1);
+}
+
+.dark .shadow-paper,
+.dark .shadow-paper-md,
+.dark .shadow-paper-lg {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* 墨水按钮反馈（按下晕开） */
+.btn-ink {
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-ink:hover {
+  transform: translateY(-1px);
+}
+
+.btn-ink:active {
+  transform: translateY(0);
+}
+
+/* 标题字体（衬线加重） */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* 代码字体 */
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   动画
+   ============================================================ */
+@keyframes paper-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(0.6deg); }
+  75% { transform: rotate(-0.6deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes ink-spread {
+  0% { box-shadow: 0 0 0 0 var(--accent-light); }
+  100% { box-shadow: 0 0 0 8px transparent; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes steam-rise {
+  0% { opacity: 0.4; transform: translateY(0) scale(1); }
+  50% { opacity: 0.7; transform: translateY(-4px) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-8px) scale(1.1); }
+}
+
+/* ----- 新增：墨水效果 ----- */
+
+/* 纸张淡入（仅透明度，无 transform，避免与位移冲突） */
+@keyframes paper-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 消息滑入：极小 Y 位移 + 透明度，用于替代被禁用的 fade-in-up */
+@keyframes message-pop {
+  0% { opacity: 0; transform: translateY(6px) scale(0.98); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 墨点脉冲：用于流式生成指示 */
+@keyframes ink-pulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* 焦点环：用于键盘导航 */
+@keyframes focus-ring-in {
+  from { box-shadow: 0 0 0 0 var(--accent-light); }
+  to { box-shadow: var(--focus-ring); }
+}
+
+/* 抽屉滑入（侧边栏 / 设置面板） */
+@keyframes drawer-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes drawer-in-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 输入光标闪烁（柔和） */
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+.animate-paper-shake:hover {
+  animation: paper-shake 0.5s ease-in-out;
+}
+
+.animate-sway {
+  animation: sway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.animate-fade-in-up {
+  /* 进场动画已禁用（用户反馈"进场动画很奇怪，去掉"） */
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.animate-fade-in {
+  /* 进场动画已禁用（用户反馈"进场动画很奇怪，去掉"） */
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* 新工具类（已可用） */
+.animate-paper-fade-in {
+  animation: paper-fade-in var(--dur-slow) var(--ease-out) both;
+}
+
+.animate-message-pop {
+  animation: message-pop var(--dur-slow) var(--ease-paper) both;
+}
+
+.animate-drawer-in-right {
+  animation: drawer-in-right var(--dur-slow) var(--ease-out) both;
+}
+
+.animate-drawer-in-up {
+  animation: drawer-in-up var(--dur-slow) var(--ease-out) both;
+}
+
+/* 开屏动画：4 模块依次飞入，停留，依次淡出 */
+@keyframes splash-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes splash-out {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.92) translateY(-12px);
+  }
+}
+
+.animate-splash-in {
+  animation: splash-in 0.6s var(--ease-out) both;
+}
+
+.animate-splash-out {
+  animation: splash-out 0.5s var(--ease-out) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================================
+   焦点环工具类（无障碍 + 键盘可访问性）
+   ============================================================ */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+
+/* 输入框外壳（容器响应内部 textarea 焦点 —— 纯 CSS 替代 inline JS） */
+.input-shell {
+  transition: border-style var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              opacity var(--dur-base) var(--ease-out);
+}
+
+.input-shell:focus-within {
+  border-style: solid !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--paper-yellow), var(--shadow-md) !important;
+}
+
+.input-shell textarea {
+  caret-color: var(--accent);
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+/* 通用过渡工具（统一时长） */
+.transition-base {
+  transition: all var(--dur-base) var(--ease-out);
+}
+
+.transition-fast {
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.transition-colors-base {
+  transition: color var(--dur-base) var(--ease-out),
+              background-color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+
+.transition-colors-fast {
+  transition: color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+
+/* ============================================================
+   兼容 Tailwind 暗色工具类
+   ============================================================ */
+.dark .bg-white {
+  background-color: var(--bg-card);
+}
+
+.dark .bg-gray-50 {
+  background-color: var(--bg-main);
+}
+
+.dark .bg-gray-100 {
+  background-color: var(--bg-hover);
+}
+
+.dark .border-gray-200 {
+  border-color: var(--border-light);
+}
+
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: var(--text-primary);
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: var(--text-secondary);
+}
+
+.dark .text-gray-400 {
+  color: var(--text-muted);
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ============================================================
+   暗色模式图片装饰
+   ============================================================ */
+/* 装饰图（猫/窗/书/睡猫）暗化处理 */
+.dark img[src*="sidebar-decor"],
+.dark img[src*="decor-"],
+.dark img[src*="welcome-hero"] {
+  filter: brightness(0.5) contrast(1.15);
+}
+
+/* 品牌 logo / 引言图：保持可读亮度 */
+.dark img[src*="brand-mark"],
+.dark img[src*="welcome-logo"],
+.dark img[src*="quote-bg"] {
+  filter: brightness(0.78) contrast(1.08);
+}
+
+/* ============================================================
+   prefers-reduced-motion 保护
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
