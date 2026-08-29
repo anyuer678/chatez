@@ -51,7 +51,7 @@ npm run build:all # 构建全部平台
 
 | 层级 | 技术 |
 |------|------|
-| 前端 | Vue 3 + TypeScript + Tailwind CSS |
+| 前端 | React 18 + TypeScript + Tailwind CSS |
 | 桌面端 | Tauri 2.x |
 | 移动端 | Capacitor (Android) |
 | 测试 | Vitest |
