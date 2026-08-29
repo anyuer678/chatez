@@ -17,9 +17,12 @@ function bytesToBase64(bytes: Uint8Array): string {
   return btoa(binary);
 }
 
-function base64ToBytes(base64: string): Uint8Array {
+// 显式绑定 ArrayBuffer 泛型：WebCrypto 的 BufferSource 不接受
+// Uint8Array<ArrayBufferLike>（TS 5.7+ 的 SharedArrayBuffer 收紧）
+function base64ToBytes(base64: string): Uint8Array<ArrayBuffer> {
   const binary = atob(base64);
-  const bytes = new Uint8Array(binary.length);
+  const buf = new ArrayBuffer(binary.length);
+  const bytes = new Uint8Array(buf);
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
   return bytes;
 }
@@ -30,7 +33,7 @@ async function getOrCreateKey(): Promise<CryptoKey> {
   if (existing) {
     try {
       return await crypto.subtle.importKey(
-        'raw', base64ToBytes(existing).buffer as ArrayBuffer, 'AES-GCM', false, ['encrypt', 'decrypt']
+        'raw', base64ToBytes(existing), 'AES-GCM', false, ['encrypt', 'decrypt']
       );
     } catch {
       // 密钥损坏：丢弃，重新生成
