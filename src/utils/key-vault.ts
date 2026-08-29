@@ -30,7 +30,7 @@ async function getOrCreateKey(): Promise<CryptoKey> {
   if (existing) {
     try {
       return await crypto.subtle.importKey(
-        'raw', base64ToBytes(existing), 'AES-GCM', false, ['encrypt', 'decrypt']
+        'raw', base64ToBytes(existing).buffer as ArrayBuffer, 'AES-GCM', false, ['encrypt', 'decrypt']
       );
     } catch {
       // 密钥损坏：丢弃，重新生成
