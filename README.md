@@ -5,7 +5,7 @@
 
 **可配置 Prompt + Skill 的 AI 工作台** — v1.14.1
 
-支持 Web、Windows、Android 三端运行。提供多 Prompt 角色切换、Skill 技能系统、流式输出、会话持久化等功能。
+纯 Web 应用。提供多 Prompt 角色切换、Skill 技能系统、流式输出、会话持久化等功能。
 
 > ⚠️ **在线预览为演示模式**：仅展示界面设计（主题切换、Prompt 市场、Skill 列表均可浏览）。出于安全考虑，**演示版禁用了 API Key 配置与 AI 对话**——密钥绝不会进入静态页面。请下载安装包体验完整功能。
 
@@ -39,37 +39,25 @@
 ```bash
 npm install
 npm run dev       # Web 开发模式
-npm run build:all # 构建全部平台
+npm run build     # 生产构建
 ```
 
 ### 构建产物
 - **Web**: `dist/`
-- **Windows**: `src-tauri/target/release/bundle/`
-- **Android**: `android/app/build/outputs/apk/`
 
 ## 技术栈
 
 | 层级 | 技术 |
 |------|------|
 | 前端 | React 18 + TypeScript + Tailwind CSS |
-| 桌面端 | Tauri 2.x |
-| 移动端 | Capacitor (Android) |
 | 测试 | Vitest |
 | 构建 | Vite 5 |
-
-## 平台支持
-
-| 平台 | 格式 | 状态 |
-|------|------|------|
-| Web | HTML/CSS/JS | ✅ 完整支持 |
-| Windows | EXE (Tauri) | ⚠️ 实验性（基础功能） |
-| Android | APK (Capacitor) | ⚠️ 实验性（基础功能） |
 
 ## 项目结构
 
 ```
 chatez/
-├── src/                          # 源码（三端共享）
+├── src/                          # 源码
 │   ├── components/               # UI 组件
 │   │   ├── Chat/                 # 对话相关（ChatWindow, InputBox, MessageBubble）
 │   │   ├── Layout/               # 布局（AppLayout, Sidebar）
@@ -77,8 +65,6 @@ chatez/
 │   ├── stores/                   # 状态管理
 │   ├── assets/                   # 静态资源
 │   └── ...                       # 类型定义
-├── src-tauri/                    # Tauri 配置（Windows）
-├── android/                      # Capacitor 配置（Android）
 ├── public/                       # 静态资源
 ├── docs/                         # 文档
 └── package.json                  # 项目配置
