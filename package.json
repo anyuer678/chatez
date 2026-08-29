@@ -23,8 +23,6 @@
     "tauri:build": "npx tauri build"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^0.0.30",
-    "ai": "^3.0.0",
     "lucide-react": "^0.300.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
