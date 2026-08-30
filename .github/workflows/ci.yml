@@ -17,3 +17,5 @@ jobs:
       - run: npm ci
       - run: npx tsc --noEmit
       - run: npx vitest run
+      - name: Dependency audit
+        run: npm audit --omit=dev --audit-level=high
