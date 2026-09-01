@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      host: "localhost",
       port: 3001,
       open: false,
       strictPort: true,
