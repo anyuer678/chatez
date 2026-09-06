@@ -5,11 +5,9 @@
 ### 安全修复
 - **API Key 加密存储**：明文 localStorage → AES-GCM 加密保险库（密钥存 sessionStorage，仅当前会话有效，刷新不丢、关闭后需重新输入）
 - 修复密钥保险库 `extractable: false` 导致密钥无法导出、刷新后密文永远解不开的致命缺陷
-- Android `allowBackup` 从 `true` 改为 `false`，防止应用数据被云备份扩散
 
 ### 功能修复
-- **修复 Tauri 开发模式白屏**：Vite 端口为 3001（strictPort），tauri.conf.json devUrl 却指向 3000，已统一为 3001
-- **统一版本号**：package.json / tauri.conf.json / Cargo.toml / Cargo.lock / Android versionName 全部统一为 1.14.1（Android versionCode 14）
+- **统一版本号**：package.json 版本号统一为 1.14.2
 
 ### 依赖
 - `npm audit fix` 无破坏性修复（postcss 高危路径遍历已修）
@@ -21,6 +19,8 @@
 
 ### 测试
 - 134 个测试全部通过；`vite build` 构建成功
+
+> 注：本条目初版曾记录 Tauri / Android（`allowBackup`、`tauri.conf.json`、`Cargo.toml`）相关修复，但对应桌面/移动壳工程不在本仓库文件树中，属错误归档，已移除。
 
 ---
 

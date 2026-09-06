@@ -1,6 +1,6 @@
 {
   "name": "chatez",
-  "version": "1.14.1",
+  "version": "1.14.2",
   "private": true,
   "description": "可配置 Prompt + Skill 的 AI 工作台",
   "scripts": {
