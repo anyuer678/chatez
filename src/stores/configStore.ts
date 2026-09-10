@@ -662,8 +662,8 @@ export const useConfigStore = create<ConfigStore>()(
           if (imported.skill && typeof imported.skill === 'object') {
             const sk = imported.skill as Record<string, unknown>;
             const safeSkill: Record<string, unknown> = {};
-            if (typeof sk.activeSkillIds === 'object' && Array.isArray(sk.activeSkillIds)) {
-              safeSkill.activeSkillIds = sk.activeSkillIds.filter((id: unknown) => typeof id === 'string');
+            if (typeof sk.enabledSkills === 'object' && Array.isArray(sk.enabledSkills)) {
+              safeSkill.enabledSkills = sk.enabledSkills.filter((id: unknown) => typeof id === 'string');
             }
             if (typeof sk.injectionMode === 'string') safeSkill.injectionMode = sk.injectionMode;
             set((state) => ({ skill: { ...state.skill, ...safeSkill } }));

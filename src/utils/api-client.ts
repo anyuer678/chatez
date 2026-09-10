@@ -65,10 +65,11 @@ export class ApiClient {
 
   private getHeaders(): Record<string, string> {
     const config = this.getConfig();
-    return {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${config.apiKey}`,
-    };
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (config.apiKey) {
+      headers.Authorization = `Bearer ${config.apiKey}`;
+    }
+    return headers;
   }
 
   async sendMessage(
