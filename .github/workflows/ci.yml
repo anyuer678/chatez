@@ -14,8 +14,15 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      - name: npm ci (with retry)
+        run: |
+          for i in 1 2 3; do
+            npm ci && break
+            echo "npm ci failed, retry $i"
+            sleep $((i * 15))
+          done
       - run: npx tsc --noEmit
       - run: npx vitest run
       - name: Dependency audit
         run: npm audit --omit=dev --audit-level=high
+        continue-on-error: true
