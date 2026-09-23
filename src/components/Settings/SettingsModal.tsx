@@ -417,7 +417,7 @@ export function SettingsModal({ isOpen, onClose, initialTab = 'api' }: SettingsM
             <div className="space-y-4">
               <div className="text-center py-4">
                 <img
-                  src="/images/quote-card.png"
+                  src={IMAGES.quoteCardPng}
                   alt="ChatEZ"
                   className="w-full max-w-sm mx-auto rounded-paper"
                   style={{ objectFit: 'contain' }}
