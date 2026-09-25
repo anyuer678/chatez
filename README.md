@@ -7,6 +7,9 @@
 
 纯 Web 应用。提供多 Prompt 角色切换、Skill 技能系统、流式输出、会话持久化等功能。
 
+<p align="center"><img src="preview.png" alt="Chatez 工作台界面预览" width="800"></p>
+
+
 > ⚠️ **在线预览为演示模式**：仅展示界面设计（主题切换、Prompt 市场、Skill 列表均可浏览）。出于安全考虑，**演示版禁用了 API Key 配置与 AI 对话**——密钥绝不会进入静态页面。本地完整功能请自行构建运行（`npm i && npm run dev`）。
 
 ## 功能特性
