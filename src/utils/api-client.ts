@@ -49,6 +49,8 @@ export class ApiClient {
         }
         return response;
       } catch (error) {
+        // AbortError（用户取消/流式超时）不重试：重试同一 aborted signal 只会立刻再失败
+        if (error instanceof Error && error.name === 'AbortError') throw error;
         lastError = error instanceof Error ? error : new Error(String(error));
         if (attempt < retries) {
           await this.sleep(this.retryDelay * Math.pow(2, attempt));
@@ -125,7 +127,12 @@ export class ApiClient {
     // 暴露 AbortController，以便 apiClient.cancel() 可从外部中断
     this.currentController = new AbortController();
     const controller = this.currentController;
-    const timeoutId = setTimeout(() => controller.abort(), config.streamTimeout);
+    // 空闲超时：每收到一段数据就重置计时器，长时间健康流不会被误杀
+    let timeoutId = setTimeout(() => controller.abort(), config.streamTimeout);
+    const resetIdleTimeout = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => controller.abort(), config.streamTimeout);
+    };
 
     try {
       const response = await this.fetchWithRetry(`${config.baseUrl}/chat/completions`, {
@@ -158,6 +165,7 @@ export class ApiClient {
         }
 
         buffer += decoder.decode(value, { stream: true });
+        resetIdleTimeout();
         const lines = buffer.split('\n');
         buffer = lines.pop() || '';
 

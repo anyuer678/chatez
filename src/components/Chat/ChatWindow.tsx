@@ -59,7 +59,7 @@ export function ChatWindow({ onOpenSidebar, showMobileMenuButton = false }: Chat
   const [moreOpen, setMoreOpen] = useState(false);
 
   const handleSend = useCallback(
-    async (content: string) => {
+    async (content: string, opts?: { reuseExistingUserMessage?: boolean }) => {
       // 演示模式：禁止发起 AI 对话
       if (IS_DEMO_MODE) {
         alert('🔒 演示模式：AI 对话已禁用。请前往 GitHub Releases 下载安装包体验完整功能。');
@@ -88,7 +88,10 @@ export function ChatWindow({ onOpenSidebar, showMobileMenuButton = false }: Chat
         skillTrigger: skillDetection?.triggerType,
       };
 
-      addMessage(sessionId, userMessage);
+      // regenerate 场景：用户消息已在会话里，不重复追加
+      if (!opts?.reuseExistingUserMessage) {
+        addMessage(sessionId, userMessage);
+      }
 
       const aiMessageId = `${Date.now()}-ai`;
       const aiMessage = {
@@ -188,7 +191,8 @@ export function ChatWindow({ onOpenSidebar, showMobileMenuButton = false }: Chat
       if (lastAiMessage) {
         useChatStore.getState().deleteMessage(activeSessionId, lastAiMessage.id);
       }
-      handleSend(lastUserMessage.content);
+      // 会话里已有这条用户消息：跳过重复追加，只重新生成回复
+      handleSend(lastUserMessage.content, { reuseExistingUserMessage: true });
     }
   }, [session, activeSessionId, isStreaming, handleSend]);
 
