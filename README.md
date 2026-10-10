@@ -74,6 +74,16 @@ chatez/
 └── package.json                  # 项目配置
 ```
 
+## 生态
+
+本项目属于 [作品体系](https://anyuer678.github.io/yuer.dev/map) 中的 **AI Agent 生态** 主线——定位为浏览器端 AI 会话客户端（多 Provider 接入、流式渲染）。
+
+同一体系内相关项目：
+
+- [lumen](https://github.com/anyuer678/lumen) —— Go Agent Runtime（内置 MCP 注册 / 沙箱工具执行）
+- [keyvault](https://github.com/anyuer678/keyvault) —— 本机 LLM 密钥保险库（chatez 为纯 Web 应用，无法直接读取本机 CLI，目前仅文档级关联）
+- [kb-ui](https://github.com/anyuer678/kb-ui) —— Vue 3 组件库（本仓库为 React 技术栈，未直接依赖，仅同体系展示）
+
 ## License
 
 [GPL-3.0](LICENSE)
