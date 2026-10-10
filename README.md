@@ -1,10 +1,10 @@
 # Chatez
 
 [![License](https://img.shields.io/github/license/anyuer678/chatez)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v1.14.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v1.14.2-blue)](CHANGELOG.md)
 [![CI](https://github.com/anyuer678/chatez/actions/workflows/ci.yml/badge.svg)](https://github.com/anyuer678/chatez/actions/workflows/ci.yml)
 
-**可配置 Prompt + Skill 的 AI 工作台** — v1.14.1
+**可配置 Prompt + Skill 的 AI 工作台** — v1.14.2
 
 纯 Web 应用。提供多 Prompt 角色切换、Skill 技能系统、流式输出、会话持久化等功能。
 
