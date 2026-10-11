@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { ChatStore, ChatSession, ChatExport, Message } from '../types/chat';
 import { apiClient } from '../utils/api-client';
 
-const generateId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+const generateId = () => crypto.randomUUID();
 
 /**
  * 把单个会话格式化为可读文本（Markdown 风格）
