@@ -4,6 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      # jest-dom 7 强制 peer 依赖 @testing-library/dom（本仓未装，CI 实证
+      # Cannot find package）；配套引入 dom 包后解除。
+      - dependency-name: "@testing-library/jest-dom"
+        update-types:
+          - "version-update:semver-major"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
